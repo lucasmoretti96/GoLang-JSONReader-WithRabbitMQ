@@ -30,7 +30,7 @@ func main() {
 	json.Unmarshal(byteValue, &users)
 
 	for i := 0; i < len(users.Users); i++ {
-		fmt.Println("Nome do usuário: " + users.Users[i].Username + " CPF do usuário: " + users.Users[i].AccountId)
+		fmt.Println("Username: " + users.Users[i].Username + " User Id: " + users.Users[i].AccountId)
 	}
 
 	sendAccountIds(users)

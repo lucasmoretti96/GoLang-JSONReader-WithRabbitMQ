@@ -17,11 +17,11 @@ func SendQueue(body string) {
 	fmt.Println("Processando fila")
 
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-	failOnError(err, "Falha ao conectar com o Rabbit")
+	failOnError(err, "Fail to connect with RabbitMQ")
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Falha ao abir um canal")
+	failOnError(err, "Fail to open a channel")
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -32,7 +32,7 @@ func SendQueue(body string) {
 		false,                             //no-wait
 		nil,                               //arguments
 	)
-	failOnError(err, "Falha ao declarar a fila")
+	failOnError(err, "Fail to declare a queue")
 	err = ch.Publish(
 		"",     //exchange
 		q.Name, //routing key
@@ -43,5 +43,5 @@ func SendQueue(body string) {
 			Body:        []byte(body),
 		})
 
-	failOnError(err, "Falha ao publicar a mensagem")
+	failOnError(err, "Failed to publish a message")
 }
